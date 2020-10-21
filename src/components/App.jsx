@@ -8,7 +8,7 @@ export default function App() {
   // currentView usestate()
 
   const [currentView, setCurrentView] = useState("AllPhotos");
-  const [photos, setPhotos] = useState(["photo1"]);
+  const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
 
   return (
@@ -22,12 +22,20 @@ export default function App() {
       */}
 
         <h1>Hello World!</h1>
-        <Navbar setCurrentView={setCurrentView} />
+        <Navbar
+          setCurrentView={setCurrentView}
+          setPhotos={setPhotos}
+          photos={photos}
+        />
         <h3>{currentView}</h3>
         {currentView === "AllPhotos" ? (
-          <AllPhotos photos={photos} />
+          <AllPhotos
+            photos={photos}
+            setCurrentView={setCurrentView}
+            setSelectedPhoto={setSelectedPhoto}
+          />
         ) : (
-          <SinglePhoto />
+          <SinglePhoto selectedPhoto={selectedPhoto} />
         )}
       </div>
     </>

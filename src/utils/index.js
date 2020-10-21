@@ -42,7 +42,7 @@ export function getSingleObject(key) {
       (error, data) => {
         if (error) {
           console.error("error: ", error);
-          return;
+          throw new Error(error);
         }
 
         resolve(data.Body.toString("base64"));
@@ -64,7 +64,7 @@ export function saveObject(file) {
       (error, data) => {
         if (error) {
           console.error("error: ", error);
-          return;
+          throw new Error(error);
         }
 
         resolve(data);
