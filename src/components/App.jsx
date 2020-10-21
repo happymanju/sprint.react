@@ -10,12 +10,7 @@ export default function App() {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
 
-  async function setPhotosArray() {
-    const arr = await listObjects();
-    //for(const keyObj of arr) setPhotos([...photos, getSingleObject(keyObj.Key)]);
-    console.log(arr);
-  }
-  setPhotosArray();
+  listObjects().then(data => setPhotos([...data]));
 
   return (
     <>
