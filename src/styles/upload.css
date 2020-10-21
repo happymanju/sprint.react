@@ -4,8 +4,7 @@
 
 input {
   position: absolute;
-  left: 50px;
-  /*left: -99.999.999px;*/
+  left: -99999999px;
 }
 
 button {

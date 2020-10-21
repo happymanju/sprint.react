@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import _ from "lodash";
-import styles from "../styles/upload.css";
-import { useEffect } from "react";
+import "../styles/upload.css";
 
-export default function Upload({ setFile, file, wrap }) {
+export default function Upload({ wrap }) {
+  const inputEl = useRef(null);
+
   return (
     <>
-      <div className="file-upload" style={styles}>
+      <div className="file-upload">
         <input
           type="file"
-          name="select-file"
           id="file-input"
           onInput={e => {
-            //filename = e.target.value.slice(e.target.value.lastIndexOf("\\") +1, );
-            //console.log(e.target.files[0]);
-            setFile(e.target.files[0]);
+            wrap(e.target.files[0]);
           }}
+          ref={inputEl}
         />
         <button
+          className="button"
           onClick={() => {
-            wrap(file);
+            inputEl.current.click();
           }}
         >
           Upload File

@@ -9,12 +9,12 @@ export default function AllPhotos({
   return (
     <>
       <div className="AllPhotos">
-        {photos.map(photo => {
+        {photos.map((photo, index) => {
           return (
             <img
               src={`data:image/;base64, ${photo}`}
               onClick={() => {
-                setSelectedPhoto(photo);
+                setSelectedPhoto(index);
                 setCurrentView("SinglePhoto");
               }}
             ></img>

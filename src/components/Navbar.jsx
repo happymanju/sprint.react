@@ -5,8 +5,6 @@ import Upload from "./Upload";
 import { saveObject, getSingleObject } from "../utils/index";
 
 export default function Navbar({ setCurrentView, setPhotos, photos }) {
-  const [file, setFile] = useState();
-
   const wrap = async file => {
     try {
       await saveObject(file);
@@ -21,8 +19,8 @@ export default function Navbar({ setCurrentView, setPhotos, photos }) {
   return (
     <>
       <div className="navbar" onClick={() => setCurrentView("AllPhotos")}>
-        Test Navigation Bar
-        <Upload setFile={setFile} file={file} wrap={wrap} />
+        <h3 className="navbar-header">All Photos</h3>
+        <Upload wrap={wrap} />
       </div>
     </>
   );

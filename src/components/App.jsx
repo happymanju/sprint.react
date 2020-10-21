@@ -3,25 +3,24 @@ import "../styles/styles.css";
 import Navbar from "../components/Navbar";
 import AllPhotos from "../components/AllPhotos";
 import SinglePhoto from "../components/SinglePhoto";
+import { listObjects, getSingleObject } from "../utils/index";
 
 export default function App() {
-  // currentView usestate()
-
   const [currentView, setCurrentView] = useState("AllPhotos");
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
 
+  async function setPhotosArray() {
+    const arr = await listObjects();
+    //for(const keyObj of arr) setPhotos([...photos, getSingleObject(keyObj.Key)]);
+    console.log(arr);
+  }
+  setPhotosArray();
+
   return (
     <>
       <div className="app">
-        {/*
-        NAVBAR
-          NAVBAR > UPLOAD
-          
-        PHOTOS(currentviews)
-      */}
-
-        <h1>Hello World!</h1>
+        <h1>Mike-TonyGram</h1>
         <Navbar
           setCurrentView={setCurrentView}
           setPhotos={setPhotos}
@@ -35,7 +34,7 @@ export default function App() {
             setSelectedPhoto={setSelectedPhoto}
           />
         ) : (
-          <SinglePhoto selectedPhoto={selectedPhoto} />
+          <SinglePhoto selectedPhoto={photos[selectedPhoto]} />
         )}
       </div>
     </>
