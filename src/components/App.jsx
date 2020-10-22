@@ -11,16 +11,22 @@ export default function App() {
   const [selectedPhoto, setSelectedPhoto] = useState();
 
   async function fun() {
-    let test = await listObjects();
-    test = test.map(x => x.Key);
+    let fetched = await listObjects();
+    fetched = fetched.map(x => x.Key);
+    console.log(fetched);
+    const photo64 = fetched.map(async key => await getSingleObject(key));
+    Promise.all(photo64).then(bases => setPhotos(bases));
 
-    while (test.length > 0) {
-      const spliced = test.slice(0, 10);
-      const ph = spliced.map(async key => await getSingleObject(key));
-      Promise.all(ph).then(bases => setPhotos(photos.concat(bases)));
-      console.log(test.length);
-    }
+    //     WARNING
+    //     comment out line 19, comment in line 26/28 and remove MaxKeys in
+    //     utile/index.js to render all pictures,
+    //     WARNING
+    // //
+    // for(let i = 0; i < fetched.length; i+=10){
+    // Promise.all(photo64.slice(0,i)).then(async bases => await setPhotos(photos.concat(bases)));
+    // }
   }
+
   useEffect(() => {
     fun();
   }, []);
@@ -29,13 +35,11 @@ export default function App() {
   return (
     <>
       <div className="app">
-        <h1>Mike-TonyGram</h1>
         <Navbar
           setCurrentView={setCurrentView}
           setPhotos={setPhotos}
           photos={photos}
         />
-        <h3>{currentView}</h3>
         {currentView === "AllPhotos" ? (
           <AllPhotos
             photos={photos}

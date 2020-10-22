@@ -1,5 +1,5 @@
 import React from "react";
-import _ from "lodash";
+// import _ from "lodash";
 
 export default function AllPhotos({
   photos,
@@ -11,7 +11,7 @@ export default function AllPhotos({
       <div className="AllPhotos">
         {photos.map((photo, index) => {
           return (
-            <figure>
+            <div className="frame">
               <img
                 className="image"
                 src={`data:image/;base64, ${photo}`}
@@ -21,7 +21,7 @@ export default function AllPhotos({
                   setCurrentView("SinglePhoto");
                 }}
               ></img>
-            </figure>
+            </div>
           );
         })}
       </div>

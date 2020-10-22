@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import _ from "lodash";
+import React, { useRef } from "react";
+// import _ from "lodash";
 import "../styles/upload.css";
 
 export default function Upload({ wrap }) {
