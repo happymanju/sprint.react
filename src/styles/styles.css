@@ -11,10 +11,21 @@ body {
   margin: 10px;
 }
 
-.image {
+figure > .image {
   cursor: pointer;
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
 }
 
 .single-photo {
   width: 100%;
+}
+
+.AllPhotos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(400px, 1fr);
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
 }

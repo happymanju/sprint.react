@@ -19,14 +19,16 @@ const bucket = new AWS.S3({
 
 export function listObjects() {
   const listObjects = new Promise((resolve, reject) => {
-    bucket.listObjects((error, data) => {
-      if (error) {
-        console.error("error: ", error);
-        return;
-      }
+    bucket.listObjects(
+      /*{MaxKeys:10},*/ (error, data) => {
+        if (error) {
+          console.error("error: ", error);
+          return;
+        }
 
-      resolve(data.Contents);
-    });
+        resolve(data.Contents);
+      }
+    );
   });
 
   return listObjects;

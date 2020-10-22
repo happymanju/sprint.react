@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/styles.css";
 import Navbar from "../components/Navbar";
 import AllPhotos from "../components/AllPhotos";
@@ -10,7 +10,21 @@ export default function App() {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
 
-  listObjects().then(data => setPhotos([...data]));
+  async function fun() {
+    let test = await listObjects();
+    test = test.map(x => x.Key);
+
+    while (test.length > 0) {
+      const spliced = test.slice(0, 10);
+      const ph = spliced.map(async key => await getSingleObject(key));
+      Promise.all(ph).then(bases => setPhotos(photos.concat(bases)));
+      console.log(test.length);
+    }
+  }
+  useEffect(() => {
+    fun();
+  }, []);
+  //console.log(arr);
 
   return (
     <>

@@ -11,13 +11,17 @@ export default function AllPhotos({
       <div className="AllPhotos">
         {photos.map((photo, index) => {
           return (
-            <img
-              src={`data:image/;base64, ${photo}`}
-              onClick={() => {
-                setSelectedPhoto(index);
-                setCurrentView("SinglePhoto");
-              }}
-            ></img>
+            <figure>
+              <img
+                className="image"
+                src={`data:image/;base64, ${photo}`}
+                alt="i don't know"
+                onClick={() => {
+                  setSelectedPhoto(index);
+                  setCurrentView("SinglePhoto");
+                }}
+              ></img>
+            </figure>
           );
         })}
       </div>
