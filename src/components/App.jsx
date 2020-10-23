@@ -3,20 +3,22 @@ import "../styles/styles.css";
 import Navbar from "../components/Navbar";
 import AllPhotos from "../components/AllPhotos";
 import SinglePhoto from "../components/SinglePhoto";
+import Loader from "../components/Loader";
 import { listObjects, getSingleObject } from "../utils/index";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState("AllPhotos");
+  const [currentView, setCurrentView] = useState("Loading");
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
 
-  async function fun() {
+  async function fetchPhotos() {
     let fetched = await listObjects();
     fetched = fetched.map(x => x.Key);
-    console.log(fetched);
     const photo64 = fetched.map(async key => await getSingleObject(key));
-    Promise.all(photo64).then(bases => setPhotos(bases));
-
+    Promise.all(photo64).then(bases => {
+      setPhotos(bases);
+      setCurrentView("AllPhotos");
+    });
     //     WARNING
     //     comment out line 19, comment in line 26/28 and remove MaxKeys in
     //     utile/index.js to render all pictures,
@@ -28,9 +30,8 @@ export default function App() {
   }
 
   useEffect(() => {
-    fun();
+    fetchPhotos();
   }, []);
-  //console.log(arr);
 
   return (
     <>
@@ -40,13 +41,19 @@ export default function App() {
           setPhotos={setPhotos}
           photos={photos}
         />
-        {currentView === "AllPhotos" ? (
+        {currentView === "Loading" && (
+          <>
+            <Loader />
+          </>
+        )}
+        {currentView === "AllPhotos" && (
           <AllPhotos
             photos={photos}
             setCurrentView={setCurrentView}
             setSelectedPhoto={setSelectedPhoto}
           />
-        ) : (
+        )}
+        {currentView === "SinglePhoto" && (
           <SinglePhoto selectedPhoto={photos[selectedPhoto]} />
         )}
       </div>

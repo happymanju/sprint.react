@@ -19,6 +19,7 @@ h1 {
 }
 
 .navbar {
+  cursor: pointer;
   padding: 2rem;
   display: flex;
   justify-content: flex-end;
